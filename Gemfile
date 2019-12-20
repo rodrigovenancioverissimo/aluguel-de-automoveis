@@ -29,7 +29,14 @@ gem 'bootsnap', '>= 1.4.2', require: false
 # A versão da gem importa exatamente a mesma versão do bootstrap
 gem 'bootstrap', '~> 4.4', '>= 4.4.1'
 
+# Para autenticação de usuários
+gem 'devise', '~> 4.7', '>= 4.7.1'
+
+# Com esta gem é possível usar o jquery 1, 2 ou 3. Neste projeto utilizamos o jquery 3.4.1
 gem 'jquery-rails', '~> 4.3', '>= 4.3.5'
+
+# Para sistemas com múltiplos idiomas.
+gem 'rails-i18n', '~> 6.0'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
