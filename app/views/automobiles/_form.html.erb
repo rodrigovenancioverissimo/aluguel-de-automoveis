@@ -1,0 +1,57 @@
+<%= form_with(model: automobile, local: true) do |form| %>
+  <% if automobile.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(automobile.errors.count, "error") %> prohibited this automobile from being saved:</h2>
+
+      <ul>
+        <% automobile.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :model %>
+    <%= form.text_field :model %>
+  </div>
+
+  <div class="field">
+    <%= form.label :color %>
+    <%= form.number_field :color %>
+  </div>
+
+  <div class="field">
+    <%= form.label :year %>
+    <%= form.text_field :year %>
+  </div>
+
+  <div class="field">
+    <%= form.label :year %>
+    <%= form.text_field :year %>
+  </div>
+
+  <div class="field">
+    <%= form.label :type %>
+    <%= form.number_field :type %>
+  </div>
+
+  <div class="field">
+    <%= form.label :plaque %>
+    <%= form.text_field :plaque %>
+  </div>
+
+  <div class="field">
+    <%= form.label :daily_cost %>
+    <%= form.text_field :daily_cost %>
+  </div>
+
+  <div class="field">
+    <%= form.label :daily_cost %>
+    <%= form.text_field :daily_cost %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

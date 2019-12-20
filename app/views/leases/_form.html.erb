@@ -1,0 +1,47 @@
+<%= form_with(model: lease, local: true) do |form| %>
+  <% if lease.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(lease.errors.count, "error") %> prohibited this lease from being saved:</h2>
+
+      <ul>
+        <% lease.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :person_id %>
+    <%= form.text_field :person_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :automobile_id %>
+    <%= form.text_field :automobile_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :start_time %>
+    <%= form.datetime_select :start_time %>
+  </div>
+
+  <div class="field">
+    <%= form.label :end_time %>
+    <%= form.datetime_select :end_time %>
+  </div>
+
+  <div class="field">
+    <%= form.label :entry_time %>
+    <%= form.datetime_select :entry_time %>
+  </div>
+
+  <div class="field">
+    <%= form.label :exit_time %>
+    <%= form.datetime_select :exit_time %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

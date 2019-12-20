@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Person:</strong>
+  <%= @lease.person_id %>
+</p>
+
+<p>
+  <strong>Automobile:</strong>
+  <%= @lease.automobile_id %>
+</p>
+
+<p>
+  <strong>Start time:</strong>
+  <%= @lease.start_time %>
+</p>
+
+<p>
+  <strong>End time:</strong>
+  <%= @lease.end_time %>
+</p>
+
+<p>
+  <strong>Entry time:</strong>
+  <%= @lease.entry_time %>
+</p>
+
+<p>
+  <strong>Exit time:</strong>
+  <%= @lease.exit_time %>
+</p>
+
+<%= link_to 'Edit', edit_lease_path(@lease) %> |
+<%= link_to 'Back', leases_path %>

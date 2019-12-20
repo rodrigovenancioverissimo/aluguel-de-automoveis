@@ -1,0 +1,2 @@
+module AutomobilesHelper
+end
