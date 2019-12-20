@@ -43,6 +43,10 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   # Para testes em views
   gem 'capybara', '~> 3.29'
+  # Gerador de valores aleatórios. Usado na automação de testes
+  gem 'faker', '~> 2.9'
+  # Sementes para usar em testes de models
+  gem 'factory_bot_rails', '~> 5.1', '>= 5.1.1'
   # Para automação de testes
   gem 'rspec-rails', '~> 3.9'
 end
