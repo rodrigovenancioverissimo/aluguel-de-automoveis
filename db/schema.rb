@@ -25,12 +25,12 @@ ActiveRecord::Schema.define(version: 2019_12_20_194558) do
   end
 
   create_table "automobiles", force: :cascade do |t|
-    t.string "model", limit: 128
-    t.integer "color"
-    t.integer "year", limit: 9999
-    t.integer "type"
-    t.string "plaque", limit: 7
-    t.decimal "daily_cost", precision: 7, scale: 2
+    t.string "model", limit: 128, null: false
+    t.integer "color", null: false
+    t.integer "year", limit: 9999, null: false
+    t.integer "automobile_type", null: false
+    t.string "plaque", limit: 7, null: false
+    t.decimal "daily_cost", precision: 7, scale: 2, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(version: 2019_12_20_194558) do
     t.datetime "end_time"
     t.datetime "entry_time"
     t.datetime "exit_time"
+    t.float "total_price"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["automobile_id"], name: "index_leases_on_automobile_id"
@@ -79,7 +80,7 @@ ActiveRecord::Schema.define(version: 2019_12_20_194558) do
     t.integer "person_id", null: false
     t.string "ddd", limit: 3, null: false
     t.string "number", limit: 9, null: false
-    t.integer "type", null: false
+    t.integer "phone_type", null: false
     t.boolean "preferential", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

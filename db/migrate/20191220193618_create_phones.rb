@@ -4,7 +4,7 @@ class CreatePhones < ActiveRecord::Migration[6.0]
       t.references :person, null: false, foreign_key: true
       t.string :ddd, limit: 3, null: false
       t.string :number, limit: 9, null: false
-      t.integer :type, null: false
+      t.integer :phone_type, null: false
       t.boolean :preferential, null: false
 
       t.timestamps

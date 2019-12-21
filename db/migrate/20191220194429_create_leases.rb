@@ -7,6 +7,7 @@ class CreateLeases < ActiveRecord::Migration[6.0]
       t.timestamp :end_time
       t.timestamp :entry_time
       t.timestamp :exit_time
+      t.float :total_price
 
       t.timestamps
     end
