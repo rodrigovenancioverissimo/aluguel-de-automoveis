@@ -15,14 +15,10 @@
   <%= @automobile.year %>
 </p>
 
-<p>
-  <strong>Year:</strong>
-  <%= @automobile.year %>
-</p>
 
 <p>
   <strong>Type:</strong>
-  <%= @automobile.type %>
+  <%= @automobile.automobile_type %>
 </p>
 
 <p>
@@ -35,10 +31,6 @@
   <%= @automobile.daily_cost %>
 </p>
 
-<p>
-  <strong>Daily cost:</strong>
-  <%= @automobile.daily_cost %>
-</p>
 
 <%= link_to 'Edit', edit_automobile_path(@automobile) %> |
 <%= link_to 'Back', automobiles_path %>

@@ -212,5 +212,3 @@ Lease.transaction do
   puts('.')
 end
 puts('Operação concluída')
-
-{total_price: '199.98', start_time: '2019-11-07 10:30', end_time: '2019-11-09 10:20', exit_time: '2019-11-07 10:40', entry_time: '2019-11-09 09:20'}

@@ -1,5 +1,6 @@
 class LeasesController < ApplicationController
   before_action :set_lease, only: [:show, :edit, :update, :destroy]
+  before_action :set_sidebar
 
   # GET /leases
   # GET /leases.json
@@ -62,13 +63,18 @@ class LeasesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_lease
-      @lease = Lease.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def lease_params
-      params.require(:lease).permit(:person_id, :automobile_id, :start_time, :end_time, :entry_time, :exit_time)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_lease
+    @lease = Lease.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def lease_params
+    params.require(:lease).permit(:person_id, :automobile_id, :start_time, :end_time, :entry_time, :exit_time)
+  end
+
+  def set_sidebar
+    @sidebar = 'operational'
+  end
 end

@@ -2,16 +2,14 @@
 
 <h1>Automobiles</h1>
 
-<table>
+<table class="table table-bordered table-hover table-striped">
   <thead>
     <tr>
       <th>Model</th>
       <th>Color</th>
       <th>Year</th>
-      <th>Year</th>
       <th>Type</th>
       <th>Plaque</th>
-      <th>Daily cost</th>
       <th>Daily cost</th>
       <th colspan="3"></th>
     </tr>
@@ -23,10 +21,8 @@
         <td><%= automobile.model %></td>
         <td><%= automobile.color %></td>
         <td><%= automobile.year %></td>
-        <td><%= automobile.year %></td>
-        <td><%= automobile.type %></td>
+        <td><%= automobile.automobile_type %></td>
         <td><%= automobile.plaque %></td>
-        <td><%= automobile.daily_cost %></td>
         <td><%= automobile.daily_cost %></td>
         <td><%= link_to 'Show', automobile %></td>
         <td><%= link_to 'Edit', edit_automobile_path(automobile) %></td>

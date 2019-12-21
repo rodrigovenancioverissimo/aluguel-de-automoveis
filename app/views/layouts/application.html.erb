@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>AluguelDeAutomoveis</title>
+    <title>Aluguel De Automóveis</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -10,6 +10,11 @@
   </head>
 
   <body>
-    <%= yield %>
+    <%= render 'layouts/partials/navbar' %>
+    <% if @sidebar %>
+      <%= render "shared/sidebars/#{@sidebar}" %>
+    <% else %>
+      <%= yield %>
+    <% end %>
   </body>
 </html>

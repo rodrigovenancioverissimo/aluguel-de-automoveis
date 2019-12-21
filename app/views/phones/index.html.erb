@@ -2,7 +2,7 @@
 
 <h1>Phones</h1>
 
-<table>
+<table class="table table-bordered table-hover table-striped">
   <thead>
     <tr>
       <th>Person</th>
@@ -20,7 +20,7 @@
         <td><%= phone.person_id %></td>
         <td><%= phone.ddd %></td>
         <td><%= phone.number %></td>
-        <td><%= phone.type %></td>
+        <td><%= phone.phone_type %></td>
         <td><%= phone.preferential %></td>
         <td><%= link_to 'Show', phone %></td>
         <td><%= link_to 'Edit', edit_phone_path(phone) %></td>
