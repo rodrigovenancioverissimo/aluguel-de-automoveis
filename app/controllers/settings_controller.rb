@@ -1,6 +1,6 @@
 class SettingsController < ApplicationController
   before_action :set_setting, only: [:show, :edit, :update, :destroy]
-
+  before_action { @sidebar = 'administration' }
   # GET /settings
   # GET /settings.json
   def index

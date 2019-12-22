@@ -1,6 +1,6 @@
 class AutomobilesController < ApplicationController
   before_action :set_automobile, only: [:show, :edit, :update, :destroy]
-
+  before_action { @sidebar = 'administration' }
   # GET /automobiles
   # GET /automobiles.json
   def index

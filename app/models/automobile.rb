@@ -7,7 +7,7 @@ class Automobile < ApplicationRecord
   enum color: { 'amarelo': 0, 'azul': 1, 'branco': 2, 'cinza': 3, 'laranja': 4, 'marrom': 5, 'prata': 6,
                 'preto': 7, 'roxo': 8, 'rosa': 9, 'verde': 10, 'vermelho': 11 }
 
-  validates :model, length: { minimum: 3, maximum: 128 }, presence: true
+  validates :model, length: { minimum: 1, maximum: 128 }, presence: true
   validates :color, presence: true
   validates :year, inclusion: { in: 1000..3000 }, presence: true
   validates :automobile_type, presence: true

@@ -1,6 +1,6 @@
 class LicensesController < ApplicationController
   before_action :set_license, only: [:show, :edit, :update, :destroy]
-
+  before_action { @sidebar = 'administration' }
   # GET /licenses
   # GET /licenses.json
   def index

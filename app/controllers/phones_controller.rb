@@ -1,6 +1,6 @@
 class PhonesController < ApplicationController
   before_action :set_phone, only: [:show, :edit, :update, :destroy]
-
+  before_action { @sidebar = 'administration' }
   # GET /phones
   # GET /phones.json
   def index

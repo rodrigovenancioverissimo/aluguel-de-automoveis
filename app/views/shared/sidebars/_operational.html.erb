@@ -1,16 +1,12 @@
-<div style="display: flex">
-  <div style="max-width: 15%; margin: 2px 5px 5px 0">
+<div style="display: grid; grid-template-columns: minmax(100px, 20%) auto;grid-gap: 5px">
+  <div class="mt-1">
     <div class="list-group">
-      <a href="#" class="list-group-item list-group-item-action active">
-        Cras justo odio
-      </a>
-      <a href="#" class="list-group-item list-group-item-action">Dapibus ac facilisis in</a>
-      <a href="#" class="list-group-item list-group-item-action">Morbi leo risus</a>
-      <a href="#" class="list-group-item list-group-item-action">Porta ac consectetur ac</a>
-      <a href="#" class="list-group-item list-group-item-action disabled" tabindex="-1" aria-disabled="true">Vestibulum at eros</a>
+      <%= link_to 'Alocações', operational_new_leases_path, class: 'list-group-item list-group-item-action' %>
+      <%= link_to 'Entrada/Saída', operational_entry_and_exit_of_leases_path, class: 'list-group-item list-group-item-action' %>
+      <%= link_to 'Atrasos', operational_late_leases_path, class: 'list-group-item list-group-item-action' %>
     </div>
   </div>
-  <div style="width: 85%">
+  <div>
     <%= yield %>
   </div>
 </div>

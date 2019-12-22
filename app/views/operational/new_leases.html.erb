@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Leases</h1>
+
+<table class="table table-bordered table-hover table-striped">
+  <thead>
+  <tr>
+    <th>Nome</th>
+    <th>Sobrenome</th>
+    <th>Automóvel</th>
+    <th>Start time</th>
+    <th>End time</th>
+    <th colspan="3"></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @leases.each do |lease| %>
+    <tr>
+      <td><%= lease.person.name %></td>
+      <td><%= lease.person.surname %></td>
+      <td><%= "#{ lease.automobile.model } - #{ lease.automobile.year } - #{ lease.automobile.color.titleize }" %></td>
+      <td><%= lease.start_time %></td>
+      <td><%= lease.end_time %></td>
+      <td><%= link_to 'Show', lease %></td>
+      <td><%= link_to 'Edit', edit_lease_path(lease) %></td>
+      <td><%= link_to 'Destroy', lease, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Lease', new_lease_path %>
