@@ -1,5 +1,7 @@
-<h1>New Automobile</h1>
+<div class="container-fluid">
+  <h1>New Automobile</h1>
 
-<%= render 'form', automobile: @automobile %>
+  <%= render 'form', automobile: @automobile %>
 
-<%= link_to 'Back', automobiles_path %>
+  <%= link_to 'Back', automobiles_path, class: 'btn btn-light mt-3' %>
+</div>

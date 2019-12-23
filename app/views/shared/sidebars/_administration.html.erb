@@ -1,4 +1,4 @@
-<div style="display: grid; grid-template-columns: minmax(100px, 20%) auto;grid-gap: 5px">
+<div style="display: grid; grid-template-columns: minmax(100px, 20%) auto">
   <div class="mt-1">
     <div class="accordion" id="accordionExample">
       <div class="list-group">
@@ -7,12 +7,12 @@
         </button>
         <div id="collapseOne" class="collapse " aria-labelledby="headingOne" data-parent="#accordionExample">
           <div class="list-group ml-3">
-            <%= link_to 'Pessoas', people_path, class: 'list-group-item list-group-item-action' %>
             <%= link_to 'Alocações', leases_path, class: 'list-group-item list-group-item-action' %>
             <%= link_to 'Automóveis', automobiles_path, class: 'list-group-item list-group-item-action' %>
-            <%= link_to 'Telefones', phones_path, class: 'list-group-item list-group-item-action' %>
-            <%= link_to 'Habilitações', licenses_path, class: 'list-group-item list-group-item-action' %>
             <%= link_to 'Configurações', settings_path, class: 'list-group-item list-group-item-action' %>
+            <%= link_to 'Habilitações', licenses_path, class: 'list-group-item list-group-item-action' %>
+            <%= link_to 'Pessoas', people_path, class: 'list-group-item list-group-item-action' %>
+            <%= link_to 'Telefones', phones_path, class: 'list-group-item list-group-item-action' %>
           </div>
         </div>
         <button class="list-group-item list-group-item-action" type="button" data-toggle="collapse" data-target="#collapseReports" aria-expanded="true" aria-controls="collapseOne">
@@ -20,9 +20,9 @@
         </button>
         <div id="collapseReports" class="collapse " aria-labelledby="headingOne" data-parent="#accordionExample">
           <div class="list-group ml-3">
-            <%= link_to 'Financeiro', reports_financial_path, class: 'list-group-item list-group-item-action' %>
-            <%= link_to 'Clientes', reports_customers_path, class: 'list-group-item list-group-item-action' %>
             <%= link_to 'Automóveis', reports_automobiles_path, class: 'list-group-item list-group-item-action' %>
+            <%= link_to 'Clientes', reports_customers_path, class: 'list-group-item list-group-item-action' %>
+            <%= link_to 'Financeiro', reports_financial_path, class: 'list-group-item list-group-item-action' %>
           </div>
         </div>
       </div>

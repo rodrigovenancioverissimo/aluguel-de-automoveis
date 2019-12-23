@@ -1,6 +1,9 @@
-<h1>Editing Automobile</h1>
+<div class="container-fluid">
 
-<%= render 'form', automobile: @automobile %>
+  <h1>Editing Automobile</h1>
 
-<%= link_to 'Show', @automobile %> |
-<%= link_to 'Back', automobiles_path %>
+  <%= render 'form', automobile: @automobile %>
+
+  <%= link_to 'Show', @automobile, class: 'btn btn-light' %> |
+  <%= link_to 'Back', automobiles_path, class: 'btn btn-light' %>
+</div>
