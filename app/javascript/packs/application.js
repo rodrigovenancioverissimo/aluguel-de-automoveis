@@ -20,3 +20,5 @@ import 'bootstrap'
 document.addEventListener("ready", () => {
     $('[data-toggle="tooltip"]').tooltip()
 })
+
+import 'cocoon'

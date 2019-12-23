@@ -17,7 +17,7 @@ class PeopleController < ApplicationController
   def new
     @person = Person.new
     @person.license = License.new
-    @person.phone = Phone.new
+    @person.phones.build
   end
 
   # GET /people/1/edit
@@ -78,5 +78,6 @@ class PeopleController < ApplicationController
 
   def options_for_select
     @phone_types = Phone.phone_types.keys
+    @modalities_names = Modality.names.except('A').keys
   end
 end

@@ -29,6 +29,9 @@ gem 'bootsnap', '>= 1.4.2', require: false
 # A versão da gem importa exatamente a mesma versão do bootstrap
 gem 'bootstrap', '~> 4.4', '>= 4.4.1'
 
+# Para formulários dinâmicos
+gem 'cocoon', '~> 1.2', '>= 1.2.14'
+
 # Para autenticação de usuários
 gem 'devise', '~> 4.7', '>= 4.7.1'
 

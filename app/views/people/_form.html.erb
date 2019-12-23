@@ -73,59 +73,53 @@
               <%= license_form.date_field :validity, class: 'form-control' %>
             </div>
           </div>
+          <div class="col-sm-6 col-md-2 col-lg-3">
+          <%= license_form.fields_for :modality do |modality_form| %>
+              <div class="form-group">
+                <%= modality_form.label :name %>
+                <%= modality_form.select :name, options_for_select(@modalities_names),
+                                         {include_blank: ''}, class: 'form-control' %>
+              </div>
+          <% end %>
+          </div>
+          <div class="col-sm-6 col-md-2 col-lg-3">
+            <div class="form-group">
+            <%= label_tag 'cat_a', 'Categoria A ?' %>
+              <div>
+                <div class="form-check form-check-inline">
+                  <%= radio_button_tag 'cat_a', true, false, class: 'form-check-input' %>
+                  <%= label_tag 'cat_a', 'Sim', value: 'true', class: 'form-check-label' %>
+                </div>
+                <div class="form-check form-check-inline">
+                  <%= radio_button_tag 'cat_a', false, false, class: 'form-check-input' %>
+                  <%= label_tag 'cat_a', 'Não', value: 'false', class: 'form-check-label' %>
+                </div>
+              </div>
+          </div>
+          </div>
         </div>
-
       <% end %>
     </div>
   </div>
-<br>
+  <br>
   <div class="card">
     <div class="card-header">
       Contato
     </div>
     <div class="card-body">
-      <%= form.fields_for :phone do |phone_form| %>
-        <div class="row">
-          <div class="col-sm-6 col-md-4 col-lg-3">
-            <div class="form-group">
-              <%= phone_form.label :number %>
-              <%= phone_form.text_field :number, class: 'form-control' %>
-            </div>
-          </div>
-          <div class="col-sm-6 col-md-4 col-lg-3">
-            <div class="form-group">
-              <%= phone_form.label :ddd %>
-              <%= phone_form.text_field :ddd, class: 'form-control' %>
-            </div>
-          </div>
-          <div class="col-sm-6 col-md-4 col-lg-3">
-            <div class="form-group">
-              <%= phone_form.label :phone_type %>
-              <%= phone_form.select :phone_type, options_for_select(@phone_types),
-                                    {include_blank: ''}, class: 'form-control' %>
-            </div>
-          </div>
-          <div class="col-sm-6 col-md-4 col-lg-3">
-            <div class="form-group">
-              <%= phone_form.label :preferential %>
-              <div>
-              <div class="form-check form-check-inline">
-              <%= phone_form.radio_button :preferential, true, class: 'form-check-input' %>
-                <%= phone_form.label :preferential, 'Sim', value: 'true', class: 'form-check-label' %>
-              </div>
-              <div class="form-check form-check-inline">
-              <%= phone_form.radio_button :preferential, false, class: 'form-check-input' %>
-                <%= phone_form.label :preferential, 'Não', value: 'false', class: 'form-check-label' %>
-              </div>
-              </div>
-            </div>
-          </div>
+      <div id="phones_container">
+        <%= form.fields_for :phones do |phone_form| %>
+          <%= render 'people/partials/phone_form', phone_form: phone_form %>
+        <% end %>
+        <div class="links">
+          <%= link_to_add_association 'add task', form, :phones,
+                                      partial: 'people/partials/phone_form',
+                                      form_name: 'phone_form', class: 'btn btn-primary' %>
         </div>
-
-      <% end %>
+      </div>
     </div>
   </div>
-<br>
+  <br>
   <div class="actions">
     <%= form.submit class: 'btn btn-warning', style: 'float: right' %>
   </div>
