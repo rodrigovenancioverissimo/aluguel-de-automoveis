@@ -35,6 +35,9 @@ gem 'devise', '~> 4.7', '>= 4.7.1'
 # Com esta gem é possível usar o jquery 1, 2 ou 3. Neste projeto utilizamos o jquery 3.4.1
 gem 'jquery-rails', '~> 4.3', '>= 4.3.5'
 
+# Para paginação
+gem 'kaminari', '~> 1.1', '>= 1.1.1'
+
 # Para sistemas com múltiplos idiomas.
 gem 'rails-i18n', '~> 6.0'
 
