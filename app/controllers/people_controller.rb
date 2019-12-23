@@ -1,10 +1,11 @@
 class PeopleController < ApplicationController
   before_action :set_person, only: [:show, :edit, :update, :destroy]
   before_action { @sidebar = 'administration' }
+  before_action :options_for_select, only: [:new, :edit, :create, :update]
   # GET /people
   # GET /people.json
   def index
-    @people = Person.all
+    @people = Person.all.page(params[:page])
   end
 
   # GET /people/1
@@ -15,6 +16,8 @@ class PeopleController < ApplicationController
   # GET /people/new
   def new
     @person = Person.new
+    @person.license = License.new
+    @person.phone = Phone.new
   end
 
   # GET /people/1/edit
@@ -71,5 +74,9 @@ class PeopleController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def person_params
     params.require(:person).permit(:name, :surname, :cpf, :cpf, :date_of_birth, :email)
+  end
+
+  def options_for_select
+    @phone_types = Phone.phone_types.keys
   end
 end

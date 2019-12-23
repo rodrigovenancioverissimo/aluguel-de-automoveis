@@ -11,37 +11,122 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
-  </div>
 
-  <div class="field">
-    <%= form.label :surname %>
-    <%= form.text_field :surname %>
-  </div>
 
-  <div class="field">
-    <%= form.label :cpf %>
-    <%= form.text_field :cpf %>
+  <div class="card">
+    <div class="card-header">
+      Informações pessoais
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-sm-5 col-md-5 col-lg-4">
+          <div class="form-group">
+            <%= form.label :name %>
+            <%= form.text_field :name, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="col-sm-7 col-md-7 col-lg-5">
+          <div class="form-group">
+            <%= form.label :surname %>
+            <%= form.text_field :surname, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-3">
+          <div class="form-group">
+            <%= form.label :cpf %>
+            <%= form.text_field :cpf, class: 'form-control', maxlength: 11 %>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-3">
+          <div class="form-group">
+            <%= form.label :date_of_birth %>
+            <%= form.date_field :date_of_birth, class: 'form-control', max: Date.current - 18.years %>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-8 col-lg-6">
+          <div class="form-group">
+            <%= form.label :email %>
+            <%= form.text_field :email, class: 'form-control' %>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
+  <br>
 
-  <div class="field">
-    <%= form.label :cpf %>
-    <%= form.text_field :cpf %>
+  <div class="card">
+    <div class="card-header">
+      Habilitação
+    </div>
+    <div class="card-body">
+      <%= form.fields_for :license do |license_form| %>
+        <div class="row">
+          <div class="col-sm-6 col-md-4 col-lg-3">
+            <div class="form-group">
+              <%= license_form.label :number %>
+              <%= license_form.text_field :number, class: 'form-control' %>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-4 col-lg-3">
+            <div class="form-group">
+              <%= license_form.label :validity %>
+              <%= license_form.date_field :validity, class: 'form-control' %>
+            </div>
+          </div>
+        </div>
+
+      <% end %>
+    </div>
   </div>
+<br>
+  <div class="card">
+    <div class="card-header">
+      Contato
+    </div>
+    <div class="card-body">
+      <%= form.fields_for :phone do |phone_form| %>
+        <div class="row">
+          <div class="col-sm-6 col-md-4 col-lg-3">
+            <div class="form-group">
+              <%= phone_form.label :number %>
+              <%= phone_form.text_field :number, class: 'form-control' %>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-4 col-lg-3">
+            <div class="form-group">
+              <%= phone_form.label :ddd %>
+              <%= phone_form.text_field :ddd, class: 'form-control' %>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-4 col-lg-3">
+            <div class="form-group">
+              <%= phone_form.label :phone_type %>
+              <%= phone_form.select :phone_type, options_for_select(@phone_types),
+                                    {include_blank: ''}, class: 'form-control' %>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-4 col-lg-3">
+            <div class="form-group">
+              <%= phone_form.label :preferential %>
+              <div>
+              <div class="form-check form-check-inline">
+              <%= phone_form.radio_button :preferential, true, class: 'form-check-input' %>
+                <%= phone_form.label :preferential, 'Sim', value: 'true', class: 'form-check-label' %>
+              </div>
+              <div class="form-check form-check-inline">
+              <%= phone_form.radio_button :preferential, false, class: 'form-check-input' %>
+                <%= phone_form.label :preferential, 'Não', value: 'false', class: 'form-check-label' %>
+              </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
-  <div class="field">
-    <%= form.label :date_of_birth %>
-    <%= form.date_select :date_of_birth %>
+      <% end %>
+    </div>
   </div>
-
-  <div class="field">
-    <%= form.label :email %>
-    <%= form.text_field :email %>
-  </div>
-
+<br>
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit class: 'btn btn-warning', style: 'float: right' %>
   </div>
 <% end %>

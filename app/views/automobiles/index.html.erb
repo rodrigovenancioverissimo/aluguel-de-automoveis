@@ -22,6 +22,11 @@
     </thead>
 
     <tbody>
+    <% if @automobiles.blank? %>
+      <tr>
+        <td colspan="9">Nenhum automóvel cadastrado</td>
+      </tr>
+    <% end %>
     <% @automobiles.each do |automobile| %>
       <tr>
         <td><%= automobile.model %></td>
@@ -32,7 +37,7 @@
         <td><%= automobile.daily_cost %></td>
         <td><%= link_to 'Show', automobile %></td>
         <td><%= link_to 'Edit', edit_automobile_path(automobile) %></td>
-        <td><%= link_to 'Destroy', automobile, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Destroy', automobile, method: :delete, data: {confirm: 'Are you sure?'} %></td>
       </tr>
     <% end %>
     </tbody>
@@ -43,4 +48,4 @@
       <%= link_to 'New Automobile', new_automobile_path, class: 'btn btn-success', style: 'float:right' %>
     </div>
   </div>
- </div>
+</div>
