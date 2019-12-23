@@ -14,6 +14,10 @@ class Automobile < ApplicationRecord
   validates :plaque, length: { is: 7 }, presence: true, uniqueness: true
   validates :daily_cost, length: { maximum: 99999 }, presence: true
 
+  scope :unavailable_on_wednesdays, -> {
+    Automobile.where("plaque like '%4'")
+  }
+
   private
   def sanitize_inputs
     self.plaque = plaque.upcase.gsub(/[^0-9A-Z]/, '')

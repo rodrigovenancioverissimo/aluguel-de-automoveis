@@ -18,6 +18,20 @@ class Person < ApplicationRecord
   validates :email, length: { maximum: 256 }, presence: true,
             format: { with: /[^\s\@]+@[^\s\@]+\.[^\s\@]{2,}/ }
 
+  scope :can_rent_truck, -> {
+    Person.joins(license: :modalities)
+        .where("date_of_birth < ?", Date.current - 60.years)
+        .where(licenses: { modalities: 2 })
+  }
+
+  scope :can_lease_for_more_4_days, -> {
+    Person.group(:id).joins(:leases).where("leases.entry_time < leases.end_time").having("count(people.id) >= 2")
+  }
+
+  scope :license_a_month_to_win, -> {
+    Person.joins(:license).where("licenses.validity >= ? and licenses.validity < ?", Date.current - 30.days, Date.current)
+  }
+
   private
   def sanitize_inputs
     self.cpf = cpf.gsub(/[^0-9]/, '')
