@@ -1,5 +1,13 @@
-Clientes com atraso
-<div style="max-height: 300px; overflow: auto;">
+<div class="container-fluid">
+  <div class="row mt-2 mb-1">
+    <div class="col-sm-6">
+      <h5>Clientes com atraso</h5>
+    </div>
+    <div class="col-sm-6 d-flex justify-content-end">
+      <%= paginate @late_people, param_name: 'late_people_page' %>
+    </div>
+  </div>
+
   <table class="table table-bordered table-hover table-striped">
     <thead>
     <th>Nome</th>
@@ -18,9 +26,16 @@ Clientes com atraso
     <% end %>
     </tbody>
   </table>
-</div>
-Clientes que podem alugar caminhões
-<div style="max-height: 300px; overflow: auto;">
+  <hr class="mt-5 mb-5">
+  <div class="row mt-2 mb-1">
+    <div class="col-sm-6">
+      <h5>Clientes que podem alugar caminhões</h5>
+    </div>
+    <div class="col-sm-6 d-flex justify-content-end">
+      <%= paginate @can_rent_truck, param_name: 'can_rent_trucke_page' %>
+    </div>
+  </div>
+
   <table class="table table-bordered table-hover table-striped">
     <thead>
     <th>Nome</th>
@@ -44,10 +59,16 @@ Clientes que podem alugar caminhões
     <% end %>
     </tbody>
   </table>
-</div>
+  <hr class="mt-5 mb-5">
+  <div class="row mt-2 mb-1">
+    <div class="col-sm-6">
+      <h5>Clientes que podem alugar automóveis por mais de 4 dias</h5>
+    </div>
+    <div class="col-sm-6 d-flex justify-content-end">
+      <%= paginate @can_lease_for_more_4_days, param_name: 'can_lease_for_more_4_days_page' %>
+    </div>
+  </div>
 
-Clientes que podem alugar automóveis por mais de 4 dias
-<div style="max-height: 300px; overflow: auto;">
   <table class="table table-bordered table-hover table-striped">
     <thead>
     <th>Nome</th>
@@ -69,10 +90,17 @@ Clientes que podem alugar automóveis por mais de 4 dias
     <% end %>
     </tbody>
   </table>
-</div>
 
-Clientes que possuem habilitações um mês para vencer
-<div style="max-height: 300px; overflow: auto;">
+  <hr class="mt-5 mb-5">
+  <div class="row mt-2 mb-1">
+    <div class="col-sm-6">
+      <h5>Clientes que possuem habilitações um mês para vencer</h5>
+    </div>
+    <div class="col-sm-6 d-flex justify-content-end">
+      <%= paginate @license_a_month_to_win, param_name: 'license_a_month_to_win_page' %>
+    </div>
+  </div>
+
   <table class="table table-bordered table-hover table-striped">
     <thead>
     <th>Nome</th>

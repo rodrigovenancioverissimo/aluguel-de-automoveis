@@ -10,18 +10,25 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
+  <div class="row">
+    <div class="col-sm-12 col-md-6 col-lg-4">
+      <div class="form-group">
+        <%= form.label :name %>
+        <%= form.text_field :name, class: 'form-control' %>
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-12 col-lg-12">
+      <div class="form-group">
+        <%= form.label :value %>
+        <%= form.text_area :value, class: 'form-control' %>
+      </div>
+    </div>
   </div>
 
-  <div class="field">
-    <%= form.label :value %>
-    <%= form.text_area :value %>
-  </div>
+
+
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit class: 'btn btn-warning float-right' %>
   </div>
 <% end %>

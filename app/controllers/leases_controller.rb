@@ -5,7 +5,7 @@ class LeasesController < ApplicationController
   # GET /leases
   # GET /leases.json
   def index
-    @leases = Lease.all
+    @leases = Lease.all.page(params[:page])
   end
 
   # GET /leases/1

@@ -11,19 +11,19 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :person_id %>
-    <%= form.text_field :person_id %>
+    <%= form.text_field :person_id, class:'form-control' %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :number %>
-    <%= form.text_field :number %>
+    <%= form.text_field :number, class:'form-control' %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :validity %>
-    <%= form.date_select :validity %>
+    <%= form.date_field :validity, class:'form-control' %>
   </div>
 
   <div class="actions">

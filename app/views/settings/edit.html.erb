@@ -1,6 +1,8 @@
-<h1>Editing Setting</h1>
+<div class="container-fluid">
+  <h1>Editing Setting</h1>
 
-<%= render 'form', setting: @setting %>
+  <%= render 'form', setting: @setting %>
 
-<%= link_to 'Show', @setting %> |
-<%= link_to 'Back', settings_path %>
+  <%= link_to 'Show', @setting, class: 'btn btn-light' %> |
+  <%= link_to 'Back', settings_path, class: 'btn btn-light' %>
+</div>

@@ -10,38 +10,53 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= form.label :person_id %>
-    <%= form.text_field :person_id %>
+<div class="row">
+  <div class="col-sm-12 col-md-6">
+    <div class="form-group">
+      <%= label_tag 'person_preview', 'Person' %>
+      <%= text_field_tag 'person_preview', ("#{form.object.person.name} #{form.object.person.surname}" rescue ''),
+                         class:'form-control', disabled: true %>
+      <%= form.hidden_field :person_id %>
+    </div>
   </div>
-
-  <div class="field">
-    <%= form.label :automobile_id %>
-    <%= form.text_field :automobile_id %>
+  <div class="col-sm-12 col-md-6">
+    <div class="form-group">
+      <%= label_tag 'automobile_preview', 'Automobile' %>
+      <%= text_field_tag 'automobile_preview',
+                          ("#{form.object.automobile.model} - #{form.object.automobile.year} - #{form.object.automobile.color}" rescue ''),
+                          class:'form-control', disabled: true %>
+      <%= form.hidden_field :automobile_id %>
+    </div>
   </div>
+  <div class="col-sm-6 col-md-6 col-lg-3">
+    <div class="form-group">
+      <%= form.label :start_time %>
+      <%= form.date_field :start_time, class:'form-control' %>
+    </div>
 
-  <div class="field">
-    <%= form.label :start_time %>
-    <%= form.datetime_select :start_time %>
   </div>
+  <div class="col-sm-6 col-md-6 col-lg-3">
+    <div class="form-group">
+      <%= form.label :end_time %>
+      <%= form.date_field :end_time, class:'form-control' %>
+    </div>
 
-  <div class="field">
-    <%= form.label :end_time %>
-    <%= form.datetime_select :end_time %>
   </div>
-
-  <div class="field">
-    <%= form.label :entry_time %>
-    <%= form.datetime_select :entry_time %>
+  <div class="col-sm-6 col-md-6 col-lg-3">
+    <div class="form-group">
+      <%= form.label :entry_time %>
+      <%= form.date_field :entry_time, class:'form-control' %>
+    </div>
   </div>
-
-  <div class="field">
-    <%= form.label :exit_time %>
-    <%= form.datetime_select :exit_time %>
+  <div class="col-sm-6 col-md-6 col-lg-3">
+    <div class="form-group">
+      <%= form.label :exit_time %>
+      <%= form.date_field :exit_time, class:'form-control' %>
+    </div>
   </div>
+</div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit class: 'btn btn-warning float-right' %>
   </div>
 <% end %>

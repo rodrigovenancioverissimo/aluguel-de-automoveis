@@ -1,29 +1,44 @@
-<p id="notice"><%= notice %></p>
+<div class="container-fluid">
+  <div class="row mt-2">
+    <div class="col-12">
+      <%= link_to 'New Setting', new_setting_path, class: 'btn btn-success float-right' %>
+    </div>
+  </div>
+  <p id="notice"><%= notice %></p>
+  <div class="row">
+    <div class="col-sm-6">
+      <h1>Settings</h1>
+    </div>
+    <div class="col-sm-6">
+      <%= paginate @settings %>
+    </div>
+  </div>
 
-<h1>Settings</h1>
 
-<table>
-  <thead>
+  <table class="table table-striped table-hover table-bordered">
+    <thead>
     <tr>
       <th>Name</th>
       <th>Value</th>
       <th colspan="3"></th>
     </tr>
-  </thead>
+    </thead>
 
-  <tbody>
+    <tbody>
+    <% if @settings.blank? %>
+      <tr>
+        <td colspan="5">Nenhuma configuração para mostrar.</td>
+      </tr>
+    <% end %>
     <% @settings.each do |setting| %>
       <tr>
         <td><%= setting.name %></td>
         <td><%= setting.value %></td>
         <td><%= link_to 'Show', setting %></td>
         <td><%= link_to 'Edit', edit_setting_path(setting) %></td>
-        <td><%= link_to 'Destroy', setting, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Destroy', setting, method: :delete, data: {confirm: 'Are you sure?'} %></td>
       </tr>
     <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Setting', new_setting_path %>
+    </tbody>
+  </table>
+</div>

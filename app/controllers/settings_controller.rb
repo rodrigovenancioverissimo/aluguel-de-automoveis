@@ -4,7 +4,7 @@ class SettingsController < ApplicationController
   # GET /settings
   # GET /settings.json
   def index
-    @settings = Setting.all
+    @settings = Setting.all.page(params[:page])
   end
 
   # GET /settings/1

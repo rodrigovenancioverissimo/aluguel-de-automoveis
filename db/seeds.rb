@@ -46,7 +46,7 @@ if ENV['faker'] == 'true'
   end
   for i in 1..(sampling_number/2).to_i
     startTime = Faker::Time.between_dates(from: Date.today - 90, to: Date.today + 30, period: :day)
-    endTime = (startTime + rand(0..3).day).change(hour: rand(8..17), min: rand(0..59))
+    endTime = (startTime + rand(1..4).day).change(hour: rand(8..17), min: rand(0..59))
     exitTime = Faker::Time.between(from: startTime, to: endTime - 1.hour, format: :default).to_time
     entryTime = Faker::Time.between(from: exitTime, to: endTime + 2.days, format: :default).to_time
     diffInDaysIsFloat = (endTime - startTime) / 60 / 60 / 24

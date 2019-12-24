@@ -1,6 +1,19 @@
-<p id="notice"><%= notice %></p>
+<div class="container-fluid">
+  <div class="row mt-2">
+    <div class="col-12">
+      <%= link_to 'New Lease', new_lease_path, class: 'btn btn-success float-right' %>
+    </div>
+  </div>
+  <p id="notice"><%= notice %></p>
+<div class="row">
+  <div class="col-6">
+    <h1>Leases</h1>
+  </div>
+  <div class="col-6 d-flex justify-content-end">
+    <%= paginate @leases %>
+  </div>
+</div>
 
-<h1>Leases</h1>
 
 <table class="table table-bordered table-hover table-striped">
   <thead>
@@ -10,6 +23,7 @@
     <th>Automóvel</th>
     <th>Start time</th>
     <th>End time</th>
+    <th>Price</th>
     <th colspan="3"></th>
   </tr>
   </thead>
@@ -22,6 +36,7 @@
       <td><%= "#{ lease.automobile.model } - #{ lease.automobile.year } - #{ lease.automobile.color.titleize }" %></td>
       <td><%= lease.start_time %></td>
       <td><%= lease.end_time %></td>
+      <td><%= lease.total_price %></td>
       <td><%= link_to 'Show', lease %></td>
       <td><%= link_to 'Edit', edit_lease_path(lease) %></td>
       <td><%= link_to 'Destroy', lease, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -30,6 +45,4 @@
   </tbody>
 </table>
 
-<br>
-
-<%= link_to 'New Lease', new_lease_path %>
+</div>

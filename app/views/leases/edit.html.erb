@@ -1,6 +1,8 @@
-<h1>Editing Lease</h1>
+<div class="container-fluid">
+  <h1>Editing Lease</h1>
 
-<%= render 'form', lease: @lease %>
+  <%= render 'form', lease: @lease %>
 
-<%= link_to 'Show', @lease %> |
-<%= link_to 'Back', leases_path %>
+  <%= link_to 'Show', @lease, class: 'btn btn-light' %> |
+  <%= link_to 'Back', leases_path, class: 'btn btn-light' %>
+</div>
