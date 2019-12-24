@@ -16,26 +16,39 @@ class PeopleController < ApplicationController
   # GET /people/new
   def new
     @person = Person.new
-    @person.license = License.new
+    license = License.new
+    license.modalities.build
+    license.modalities.build
+    @person.license = license
     @person.phones.build
   end
 
   # GET /people/1/edit
   def edit
+    if @person.license.modalities.count == 1
+      @person.license.modalities.build
+    end
   end
 
   # POST /people
   # POST /people.json
   def create
     @person = Person.new(person_params)
-
-    respond_to do |format|
-      if @person.save
-        format.html { redirect_to @person, notice: 'Person was successfully created.' }
-        format.json { render :show, status: :created, location: @person }
-      else
-        format.html { render :new }
-        format.json { render json: @person.errors, status: :unprocessable_entity }
+    check_params
+    ActiveRecord::Base.transaction do
+      respond_to do |format|
+        if @person.errors.count == 0
+          if @person.save
+            format.html { redirect_to @person, notice: 'Person was successfully created.' }
+            format.json { render :show, status: :created, location: @person }
+          else
+            format.html { render :new }
+            format.json { render json: @person.errors, status: :unprocessable_entity }
+          end
+        else
+          format.html { render :edit }
+          format.json { render json: @person.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -43,10 +56,16 @@ class PeopleController < ApplicationController
   # PATCH/PUT /people/1
   # PATCH/PUT /people/1.json
   def update
+    check_params
     respond_to do |format|
-      if @person.update(person_params)
-        format.html { redirect_to @person, notice: 'Person was successfully updated.' }
-        format.json { render :show, status: :ok, location: @person }
+      if @person.errors.count == 0
+        if @person.update(person_params)
+          format.html { redirect_to @person, notice: 'Person was successfully updated.' }
+          format.json { render :show, status: :ok, location: @person }
+        else
+          format.html { render :edit }
+          format.json { render json: @person.errors, status: :unprocessable_entity }
+        end
       else
         format.html { render :edit }
         format.json { render json: @person.errors, status: :unprocessable_entity }
@@ -73,11 +92,24 @@ class PeopleController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def person_params
-    params.require(:person).permit(:name, :surname, :cpf, :cpf, :date_of_birth, :email)
+    params.require(:person)
+        .permit(:name, :surname, :cpf, :date_of_birth, :email, :id, :_destroy,
+                license_attributes: [:number, :validity, :id, :_destroy,
+                                     modalities_attributes: [:name, :id, :_destroy]],
+                phones_attributes: [:ddd, :number, :phone_type, :preferential, :id, :_destroy])
   end
 
   def options_for_select
     @phone_types = Phone.phone_types.keys
-    @modalities_names = Modality.names.except('A').keys
+    @modalities_names = Modality.names.keys
+  end
+
+  def check_params
+    if PhonesHelper.check_phones_attributes(person_params) == false
+      @person.errors.add(:phones, 'dados inconsistentes, verifique se foi adicionado mais de um telefone preferencial.')
+    end
+    if LicensesHelper.license_attributes_check_modalities(person_params) == false
+      @person.errors.add(:license, 'dados inconsistentes, verifique a combinação da categorias.')
+    end
   end
 end

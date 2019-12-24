@@ -11,8 +11,6 @@
     </div>
   <% end %>
 
-
-
   <div class="card">
     <div class="card-header">
       Informações pessoais
@@ -64,7 +62,7 @@
           <div class="col-sm-6 col-md-4 col-lg-3">
             <div class="form-group">
               <%= license_form.label :number %>
-              <%= license_form.text_field :number, class: 'form-control' %>
+              <%= license_form.text_field :number, class: 'form-control', maxlength: '11', minlength: '10' %>
             </div>
           </div>
           <div class="col-sm-6 col-md-4 col-lg-3">
@@ -73,29 +71,18 @@
               <%= license_form.date_field :validity, class: 'form-control' %>
             </div>
           </div>
-          <div class="col-sm-6 col-md-2 col-lg-3">
-          <%= license_form.fields_for :modality do |modality_form| %>
-              <div class="form-group">
-                <%= modality_form.label :name %>
-                <%= modality_form.select :name, options_for_select(@modalities_names),
-                                         {include_blank: ''}, class: 'form-control' %>
-              </div>
-          <% end %>
-          </div>
-          <div class="col-sm-6 col-md-2 col-lg-3">
-            <div class="form-group">
-            <%= label_tag 'cat_a', 'Categoria A ?' %>
-              <div>
-                <div class="form-check form-check-inline">
-                  <%= radio_button_tag 'cat_a', true, false, class: 'form-check-input' %>
-                  <%= label_tag 'cat_a', 'Sim', value: 'true', class: 'form-check-label' %>
+          <div class="col-sm-12 col-md-4 col-lg-6" id="modalities_container">
+            <div class="row">
+              <%= license_form.fields_for :modalities do |modality_form| %>
+                <div class="col-6">
+                  <div class="form-group">
+                    <%= modality_form.label :name, 'Categoria' %>
+                    <%= modality_form.select :name, options_for_select(@modalities_names, modality_form.object.name),
+                                             {include_blank: ''}, class: 'form-control' %>
+                  </div>
                 </div>
-                <div class="form-check form-check-inline">
-                  <%= radio_button_tag 'cat_a', false, false, class: 'form-check-input' %>
-                  <%= label_tag 'cat_a', 'Não', value: 'false', class: 'form-check-label' %>
-                </div>
-              </div>
-          </div>
+              <% end %>
+            </div>
           </div>
         </div>
       <% end %>

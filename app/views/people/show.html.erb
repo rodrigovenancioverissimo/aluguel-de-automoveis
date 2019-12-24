@@ -1,5 +1,6 @@
+<div class="container-fluid">
 <p id="notice"><%= notice %></p>
-
+<p><b>Informações pessoais</b></p>
 <p>
   <strong>Name:</strong>
   <%= @person.name %>
@@ -16,11 +17,6 @@
 </p>
 
 <p>
-  <strong>Cpf:</strong>
-  <%= @person.cpf %>
-</p>
-
-<p>
   <strong>Date of birth:</strong>
   <%= @person.date_of_birth %>
 </p>
@@ -29,6 +25,43 @@
   <strong>Email:</strong>
   <%= @person.email %>
 </p>
+<hr>
+  <p><b>Habilitação</b></p>
+  <p>
+    <strong>Número:</strong>
+    <%= @person.license.number %>
+  </p>
+  <p>
+    <strong>Validade:</strong>
+    <%= @person.license.validity %>
+  </p>
+  <% @person.license.modalities.each do |modality| %>
+    <p>
+      <strong>Categoria:</strong>
+      <%= modality.name %>
+    </p>
+<% end %>
+  <hr>
+  <p><b>Contato</b></p>
+  <% @person.phones.each do |phone| %>
+    <p>
+      <strong>DDD:</strong>
+      <%= phone.ddd %>
+    </p>
+    <p>
+      <strong>Numero:</strong>
+      <%= phone.number %>
+    </p>
+    <p>
+      <strong>Tipo:</strong>
+      <%= phone.phone_type %>
+    </p>
+    <p>
+      <strong>Preferencial:</strong>
+      <%= phone.preferential %>
+    </p>
+  <% end %>
 
-<%= link_to 'Edit', edit_person_path(@person) %> |
-<%= link_to 'Back', people_path %>
+<%= link_to 'Edit', edit_person_path(@person), class: 'btn btn-light' %> |
+<%= link_to 'Back', people_path, class: 'btn btn-light' %>
+</div>

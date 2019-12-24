@@ -8,20 +8,20 @@
         <div class="col-sm-6 col-md-4 col-lg-3">
           <div class="form-group">
             <%= phone_form.label :ddd %>
-            <%= phone_form.text_field :ddd, class: 'form-control' %>
+            <%= phone_form.text_field :ddd, class: 'form-control', maxlength: '3', required: true %>
           </div>
         </div>
         <div class="col-sm-6 col-md-4 col-lg-3">
           <div class="form-group">
             <%= phone_form.label :number %>
-            <%= phone_form.text_field :number, class: 'form-control' %>
+            <%= phone_form.text_field :number, class: 'form-control', required: true, maxlength: '9' %>
           </div>
         </div>
         <div class="col-sm-6 col-md-4 col-lg-3">
           <div class="form-group">
             <%= phone_form.label :phone_type %>
             <%= phone_form.select :phone_type, options_for_select(@phone_types, phone_form.object.phone_type),
-                                  {include_blank: ''}, class: 'form-control' %>
+                                  {include_blank: ''}, class: 'form-control', required: true %>
           </div>
         </div>
         <div class="col-sm-6 col-md-4 col-lg-3">

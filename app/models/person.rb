@@ -2,10 +2,10 @@ class Person < ApplicationRecord
   before_validation :sanitize_inputs
 
   has_one :active_lease, -> { where(exit_time: nil) }, class_name: 'Lease'
-  has_one :license
+  has_one :license, dependent: :destroy
   has_one :phone, -> { where(preferential: true) }, class_name: 'Phone'
   has_many :finalized_leases, -> { where.not(exit_time: nil) }, class_name: 'Lease'
-  has_many :leases
+  has_many :leases, dependent: :destroy
   has_many :phones, dependent: :destroy
 
   accepts_nested_attributes_for :phones, allow_destroy: true
@@ -17,6 +17,8 @@ class Person < ApplicationRecord
   validates :date_of_birth, presence: true
   validates :email, length: { maximum: 256 }, presence: true,
             format: { with: /[^\s\@]+@[^\s\@]+\.[^\s\@]{2,}/ }
+
+  validates :phones, presence: true
 
   scope :can_rent_truck, -> {
     Person.joins(license: :modalities)
