@@ -1,13 +1,23 @@
 <%# app/views/students/index.js.erb %>
 <% if @automobiles %>
-  <% js = escape_javascript(
-    render(partial: 'leases/partials/automobiles_list', locals: { automobiles: @automobiles })
-  ) %>
-  jQuery("#automobiles_filterrific_results").html("<%= js %>");
+<% js = escape_javascript(
+  render(partial: 'leases/partials/automobiles_list', locals: {
+    automobiles: @automobiles,
+    modalId: '#automobileSearchModal',
+    inputId: '#lease_automobile_id',
+    previewInputId: '#automobile_preview'
+  })
+) %>
+jQuery("#automobiles_filterrific_results").html("<%= js %>");
 <% end %>
 <% if @people %>
-  <% js = escape_javascript(
-    render(partial: 'leases/partials/people_list', locals: { people: @people })
-  ) %>
-  jQuery("#people_filterrific_results").html("<%= js %>");
+<% js = escape_javascript(
+  render(partial: 'leases/partials/people_list', locals: {
+      people: @people,
+      modalId: '#personSearchModal',
+      inputId: '#lease_person_id',
+      previewInputId: '#person_preview'
+   })
+) %>
+jQuery("#people_filterrific_results").html("<%= js %>");
 <% end %>

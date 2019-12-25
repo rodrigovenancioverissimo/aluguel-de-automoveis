@@ -16,22 +16,7 @@ class LeasesController < ApplicationController
   # GET /leases/new
   def new
     @lease = Lease.new
-    if params[:automobiles_filterrific].present?
-      automobiles_filterrific
-    elsif params[:people_filterrific].present?
-      people_filterrific
-    else
-      automobiles_filterrific
-      people_filterrific
-    end
-
-  # Recover from invalid param sets, e.g., when a filter refers to the
-  # database id of a record that doesn’t exist any more.
-  # In this case we reset filterrific and discard all filter params.
-  rescue ActiveRecord::RecordNotFound => e
-    # There is an issue with the persisted param_set. Reset it.
-    puts "Had to reset filterrific params: #{e.message}"
-    redirect_to(reset_filterrific_url(format: :html)) && return
+    new_lease_filterrific
   end
 
   # GET /leases/1/edit
@@ -42,7 +27,7 @@ class LeasesController < ApplicationController
   # POST /leases.json
   def create
     @lease = Lease.new(lease_params)
-
+    new_lease_filterrific
     respond_to do |format|
       if @lease.save
         format.html { redirect_to @lease, notice: 'Lease was successfully created.' }
@@ -99,7 +84,7 @@ class LeasesController < ApplicationController
         },
         available_filters: [:sorted_by, :with_name],
         ) or return
-    @people = @people_filterrific.find.page(params[:people_page])
+    @people = @people_filterrific.find.page(params[:people_page]).per(5)
   end
 
   def automobiles_filterrific
@@ -111,6 +96,25 @@ class LeasesController < ApplicationController
         },
         available_filters: [:sorted_by, :with_model],
         ) or return
-    @automobiles = @automobiles_filterrific.find.page(params[:automobiles_page])
+    @automobiles = @automobiles_filterrific.find.page(params[:automobiles_page]).per(5)
+  end
+
+  def new_lease_filterrific
+    if params[:automobiles_filterrific].present?
+      automobiles_filterrific
+    elsif params[:people_filterrific].present?
+      people_filterrific
+    else
+      automobiles_filterrific
+      people_filterrific
+    end
+
+      # Recover from invalid param sets, e.g., when a filter refers to the
+      # database id of a record that doesn’t exist any more.
+      # In this case we reset filterrific and discard all filter params.
+  rescue ActiveRecord::RecordNotFound => e
+    # There is an issue with the persisted param_set. Reset it.
+    puts "Had to reset filterrific params: #{e.message}"
+    redirect_to(reset_filterrific_url(format: :html)) && return
   end
 end

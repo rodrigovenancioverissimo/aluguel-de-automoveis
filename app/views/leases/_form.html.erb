@@ -107,11 +107,16 @@
           </div>
         <% end %>
 
-        <%= render( partial: 'leases/partials/people_list', locals: {people: @people} ) %>
+        <%= render( partial: 'leases/partials/people_list',
+                    locals: {
+                        people: @people,
+                        modalId: '#personSearchModal',
+                        inputId: '#lease_person_id',
+                        previewInputId: '#person_preview'
+                    } ) %>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Understood</button>
       </div>
     </div>
   </div>
@@ -156,12 +161,16 @@
 
         <%= render(
                 partial: 'leases/partials/automobiles_list',
-                locals: {automobiles: @automobiles}
+                locals: {
+                    automobiles: @automobiles,
+                    modalId: '#automobileSearchModal',
+                    inputId: '#lease_automobile_id',
+                    previewInputId: '#automobile_preview'
+                }
             ) %>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Understood</button>
       </div>
     </div>
   </div>

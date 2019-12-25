@@ -5,6 +5,7 @@ class Lease < ApplicationRecord
   validates :person_id, presence: true
   validates :automobile_id, presence: true
   validates :start_time, presence: true
+  validates :end_time, presence: true
 
   scope :cost_of_car_leases, -> {
     Lease.select('sum(leases.total_price) as price_all_car')

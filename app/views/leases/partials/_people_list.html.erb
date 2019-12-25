@@ -17,7 +17,18 @@
         <td><%= person.surname %></td>
         <td><%= person.cpf %></td>
         <td><%= person.date_of_birth %></td>
-        <td><td>
+        <td>
+          <button class="btn btn-sm btn-success"
+            onclick="set_person(
+                '<%= person.id %>',
+                '<%= inputId %>',
+                '<%= previewInputId %>',
+                '<%= person.name %>',
+                '<%= modalId %>'
+                )">
+            Set
+          </button>
+        </td>
       </tr>
     <% end %>
   </table>

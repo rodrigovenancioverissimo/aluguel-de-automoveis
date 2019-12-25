@@ -7,9 +7,10 @@
       <th>Ano</th>
       <th>Placa</th>
       <th>Custo diário</th>
+      <th></th>
     </tr>
     <% if automobiles.blank? %>
-      <tr><td colspan="5">Nenhum resultado encontado.</td></tr>
+      <tr><td colspan="6">Nenhum resultado encontado.</td></tr>
     <% end %>
     <% automobiles.each do |automobile| %>
       <tr>
@@ -18,6 +19,18 @@
         <td><%= automobile.year %></td>
         <td><%= automobile.plaque %></td>
         <td><%= automobile.daily_cost %></td>
+        <td>
+          <button class="btn btn-sm btn-success"
+                  onclick="set_automobile(
+                      '<%= automobile.id %>',
+                      '<%= inputId %>',
+                      '<%= previewInputId %>',
+                      '<%= automobile.model %>',
+                      '<%= modalId %>'
+                      )">
+            Set
+          </button>
+        </td>
       </tr>
     <% end %>
   </table>
