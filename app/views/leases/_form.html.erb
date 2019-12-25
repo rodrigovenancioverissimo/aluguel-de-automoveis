@@ -10,53 +10,159 @@
       </ul>
     </div>
   <% end %>
-<div class="row">
-  <div class="col-sm-12 col-md-6">
-    <div class="form-group">
-      <%= label_tag 'person_preview', 'Person' %>
-      <%= text_field_tag 'person_preview', ("#{form.object.person.name} #{form.object.person.surname}" rescue ''),
-                         class:'form-control', disabled: true %>
-      <%= form.hidden_field :person_id %>
+  <div class="row">
+    <div class="col-sm-12 col-md-6">
+      <div class="form-group position-relative" style="padding-right: 50px">
+        <%= label_tag 'person_preview', 'Person' %>
+        <%= text_field_tag 'person_preview', ("#{form.object.person.name} #{form.object.person.surname}" rescue ''),
+                           class: 'form-control', disabled: true %>
+        <%= form.hidden_field :person_id %>
+        <button type="button" class="btn btn-success position-absolute" style="right: 0; bottom: 0"
+                title="Clique para abrir a busca"
+                data-toggle="modal" data-target="#personSearchModal">
+          <%= fa_icon 'search' %>
+        </button>
+      </div>
     </div>
-  </div>
-  <div class="col-sm-12 col-md-6">
-    <div class="form-group">
-      <%= label_tag 'automobile_preview', 'Automobile' %>
-      <%= text_field_tag 'automobile_preview',
-                          ("#{form.object.automobile.model} - #{form.object.automobile.year} - #{form.object.automobile.color}" rescue ''),
-                          class:'form-control', disabled: true %>
-      <%= form.hidden_field :automobile_id %>
+    <div class="col-sm-12 col-md-6">
+      <div class="form-group position-relative" style="padding-right: 50px">
+        <%= label_tag 'automobile_preview', 'Automobile' %>
+        <%= text_field_tag 'automobile_preview',
+                           ("#{form.object.automobile.model} - #{form.object.automobile.year} - #{form.object.automobile.color}" rescue ''),
+                           class: 'form-control', disabled: true %>
+        <%= form.hidden_field :automobile_id %>
+        <button type="button" class="btn btn-success position-absolute" style="right: 0; bottom: 0"
+                title="Clique para abrir a busca"
+                data-toggle="modal" data-target="#automobileSearchModal">
+          <%= fa_icon 'search' %>
+        </button>
+      </div>
     </div>
-  </div>
-  <div class="col-sm-6 col-md-6 col-lg-3">
-    <div class="form-group">
-      <%= form.label :start_time %>
-      <%= form.date_field :start_time, class:'form-control' %>
-    </div>
+    <div class="col-sm-6 col-md-6 col-lg-3">
+      <div class="form-group">
+        <%= form.label :start_time %>
+        <%= form.date_field :start_time, class: 'form-control' %>
+      </div>
 
-  </div>
-  <div class="col-sm-6 col-md-6 col-lg-3">
-    <div class="form-group">
-      <%= form.label :end_time %>
-      <%= form.date_field :end_time, class:'form-control' %>
     </div>
+    <div class="col-sm-6 col-md-6 col-lg-3">
+      <div class="form-group">
+        <%= form.label :end_time %>
+        <%= form.date_field :end_time, class: 'form-control' %>
+      </div>
 
-  </div>
-  <div class="col-sm-6 col-md-6 col-lg-3">
-    <div class="form-group">
-      <%= form.label :entry_time %>
-      <%= form.date_field :entry_time, class:'form-control' %>
+    </div>
+    <div class="col-sm-6 col-md-6 col-lg-3">
+      <div class="form-group">
+        <%= form.label :entry_time %>
+        <%= form.date_field :entry_time, class: 'form-control' %>
+      </div>
+    </div>
+    <div class="col-sm-6 col-md-6 col-lg-3">
+      <div class="form-group">
+        <%= form.label :exit_time %>
+        <%= form.date_field :exit_time, class: 'form-control' %>
+      </div>
     </div>
   </div>
-  <div class="col-sm-6 col-md-6 col-lg-3">
-    <div class="form-group">
-      <%= form.label :exit_time %>
-      <%= form.date_field :exit_time, class:'form-control' %>
-    </div>
-  </div>
-</div>
 
   <div class="actions">
     <%= form.submit class: 'btn btn-warning float-right' %>
   </div>
 <% end %>
+
+<!-- Modal -->
+<div class="modal fade" id="personSearchModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="personSearchModal" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Person Search</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <%= form_for_filterrific @people_filterrific, as: 'people_filterrific' do |f| %>
+          <div class="row">
+            <div class="col-sm-6 col-md-4 col-lg-3">
+              <div class="form-group">
+                <%= f.label :with_name, 'Nome' %>
+                <%= f.text_field(:with_name, class: 'filterrific-periodically-observed form-control') %>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3">
+              <div class="form-group">
+                <%= f.label :sorted_by, 'Ordenar por' %>
+                <%= f.select :sorted_by, @people_filterrific.select_options[:sorted_by], {include_blank: ''}, class: 'form-control' %>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3 d-flex justify-content-end align-items-end">
+              <div class="form-group d-flex flex-column justify-content-between" style="width: 100%">
+                <div class="d-flex justify-content-end">
+                  <%= render_filterrific_spinner %>
+                </div>
+                <%= link_to('Reset filters', reset_filterrific_url, class: 'btn btn-light') %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+
+        <%= render( partial: 'leases/partials/people_list', locals: {people: @people} ) %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Understood</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="automobileSearchModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="automobileSearchModal" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Automobile Search</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <%= form_for_filterrific @automobiles_filterrific, as: 'automobiles_filterrific' do |f| %>
+          <div class="row">
+            <div class="col-sm-6 col-md-4 col-lg-3">
+              <div class="form-group">
+                <%= f.label :with_model, 'Modelo' %>
+                <%= f.text_field(:with_model, class: 'filterrific-periodically-observed form-control') %>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3">
+              <div class="form-group">
+                <%= f.label :sorted_by, 'Ordenar por' %>
+                <%= f.select :sorted_by, @automobiles_filterrific.select_options[:sorted_by], {include_blank: ''}, class: 'form-control' %>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3 d-flex justify-content-end align-items-end">
+              <div class="form-group d-flex flex-column justify-content-between" style="width: 100%">
+                <div class="d-flex justify-content-end">
+                  <%= render_filterrific_spinner %>
+                </div>
+                <%= link_to('Reset filters', reset_filterrific_url, class: 'btn btn-light mt-2') %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+
+        <%= render(
+                partial: 'leases/partials/automobiles_list',
+                locals: {automobiles: @automobiles}
+            ) %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Understood</button>
+      </div>
+    </div>
+  </div>
+</div>

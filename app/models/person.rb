@@ -20,6 +20,14 @@ class Person < ApplicationRecord
 
   validates :phones, presence: true
 
+  filterrific(
+      default_filter_params: { sorted_by: 'model_asc' },
+      available_filters: [
+          :sorted_by,
+          :with_name
+      ]
+  )
+
   scope :can_rent_truck, -> {
     Person.joins(license: :modalities)
         .where("date_of_birth < ?", Date.current - 60.years)
@@ -33,6 +41,21 @@ class Person < ApplicationRecord
   scope :license_a_month_to_win, -> {
     Person.joins(:license).where("licenses.validity >= ? and licenses.validity < ?", Date.current - 30.days, Date.current)
   }
+
+  scope :sorted_by, -> (sort_key){
+
+  }
+
+  scope :with_name, -> (query){
+    where("UPPER(people.name) like '%#{query.upcase}%' ")
+  }
+
+  def self.options_for_sorted_by
+    [
+        ["Name (a-z)", "name_asc"],
+        ["Name (z-a)", "name_desc"],
+    ]
+  end
 
   private
   def sanitize_inputs

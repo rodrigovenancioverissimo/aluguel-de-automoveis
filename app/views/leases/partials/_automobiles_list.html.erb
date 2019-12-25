@@ -1,0 +1,28 @@
+<div id="automobiles_filterrific_results">
+
+  <table class="table table-bordered table-hover table-striped table-sm">
+    <tr>
+      <th>Tipo</th>
+      <th>Modelo</th>
+      <th>Ano</th>
+      <th>Placa</th>
+      <th>Custo diário</th>
+    </tr>
+    <% if automobiles.blank? %>
+      <tr><td colspan="5">Nenhum resultado encontado.</td></tr>
+    <% end %>
+    <% automobiles.each do |automobile| %>
+      <tr>
+        <td><%= automobile.automobile_type %></td>
+        <td><%= automobile.model %></td>
+        <td><%= automobile.year %></td>
+        <td><%= automobile.plaque %></td>
+        <td><%= automobile.daily_cost %></td>
+      </tr>
+    <% end %>
+  </table>
+  <div class="d-flex justify-content-center">
+    <%= paginate automobiles %>
+  </div>
+</div>
+

@@ -1,0 +1,13 @@
+<%# app/views/students/index.js.erb %>
+<% if @automobiles %>
+  <% js = escape_javascript(
+    render(partial: 'leases/partials/automobiles_list', locals: { automobiles: @automobiles })
+  ) %>
+  jQuery("#automobiles_filterrific_results").html("<%= js %>");
+<% end %>
+<% if @people %>
+  <% js = escape_javascript(
+    render(partial: 'leases/partials/people_list', locals: { people: @people })
+  ) %>
+  jQuery("#people_filterrific_results").html("<%= js %>");
+<% end %>

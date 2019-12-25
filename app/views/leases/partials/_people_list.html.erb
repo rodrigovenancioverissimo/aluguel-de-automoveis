@@ -1,0 +1,28 @@
+<div id="people_filterrific_results">
+
+  <table class="table table-bordered table-hover table-striped table-sm">
+    <tr>
+      <th>Nome</th>
+      <th>Sobrenome</th>
+      <th>CPF</th>
+      <th>Data de nascimento</th>
+      <th></th>
+    </tr>
+    <% if people.blank? %>
+      <tr><td colspan="5">Nenhum resultado encontado.</td></tr>
+    <% end %>
+    <% people.each do |person| %>
+      <tr>
+        <td><%= person.name %></td>
+        <td><%= person.surname %></td>
+        <td><%= person.cpf %></td>
+        <td><%= person.date_of_birth %></td>
+        <td><td>
+      </tr>
+    <% end %>
+  </table>
+  <div class="d-flex justify-content-center">
+    <%= paginate people, param_name: 'people_page' %>
+  </div>
+</div>
+

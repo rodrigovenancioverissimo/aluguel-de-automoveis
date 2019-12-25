@@ -18,6 +18,29 @@ class Automobile < ApplicationRecord
     Automobile.where("plaque like '%4'")
   }
 
+  filterrific(
+      default_filter_params: { sorted_by: 'model_asc' },
+      available_filters: [
+          :sorted_by,
+          :with_model
+      ]
+  )
+
+  scope :sorted_by, -> (sort_key){
+
+  }
+
+  scope :with_model, -> (query){
+    where("UPPER(automobiles.model) like '%#{query.upcase}%' ")
+  }
+
+  def self.options_for_sorted_by
+    [
+        ["Model (a-z)", "model_asc"],
+        ["Model (z-a)", "model_desc"],
+    ]
+  end
+
   private
   def sanitize_inputs
     self.plaque = plaque.upcase.gsub(/[^0-9A-Z]/, '')

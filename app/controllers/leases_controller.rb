@@ -16,6 +16,22 @@ class LeasesController < ApplicationController
   # GET /leases/new
   def new
     @lease = Lease.new
+    if params[:automobiles_filterrific].present?
+      automobiles_filterrific
+    elsif params[:people_filterrific].present?
+      people_filterrific
+    else
+      automobiles_filterrific
+      people_filterrific
+    end
+
+  # Recover from invalid param sets, e.g., when a filter refers to the
+  # database id of a record that doesn’t exist any more.
+  # In this case we reset filterrific and discard all filter params.
+  rescue ActiveRecord::RecordNotFound => e
+    # There is an issue with the persisted param_set. Reset it.
+    puts "Had to reset filterrific params: #{e.message}"
+    redirect_to(reset_filterrific_url(format: :html)) && return
   end
 
   # GET /leases/1/edit
@@ -72,5 +88,29 @@ class LeasesController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def lease_params
     params.require(:lease).permit(:person_id, :automobile_id, :start_time, :end_time, :entry_time, :exit_time)
+  end
+
+  def people_filterrific
+    @people_filterrific = initialize_filterrific(
+        Person,
+        params[:people_filterrific],
+        select_options: {
+            sorted_by: Person.options_for_sorted_by,
+        },
+        available_filters: [:sorted_by, :with_name],
+        ) or return
+    @people = @people_filterrific.find.page(params[:people_page])
+  end
+
+  def automobiles_filterrific
+    @automobiles_filterrific = initialize_filterrific(
+        Automobile,
+        params[:automobiles_filterrific],
+        select_options: {
+            sorted_by: Automobile.options_for_sorted_by,
+        },
+        available_filters: [:sorted_by, :with_model],
+        ) or return
+    @automobiles = @automobiles_filterrific.find.page(params[:automobiles_page])
   end
 end

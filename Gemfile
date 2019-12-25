@@ -35,6 +35,12 @@ gem 'cocoon', '~> 1.2', '>= 1.2.14'
 # Para autenticação de usuários
 gem 'devise', '~> 4.7', '>= 4.7.1'
 
+# Para usar auxiliar em filtros em buscas e listas
+gem 'filterrific', '~> 5.2', '>= 5.2.1'
+
+# Para ícones use o fontawesome
+gem 'font-awesome-rails', '~> 4.7', '>= 4.7.0.5'
+
 # Com esta gem é possível usar o jquery 1, 2 ou 3. Neste projeto utilizamos o jquery 3.4.1
 gem 'jquery-rails', '~> 4.3', '>= 4.3.5'
 
