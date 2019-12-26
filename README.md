@@ -28,7 +28,7 @@ yarn install
 ```
 ## Banco de dados
 O sistema foi desenvolvido com base na estrutura do banco de dados que você pode ver no seguinte link
-![https://dbdiagram.io/embed/5dfd2858edf08a25543f4d74](https://dbdiagram.io/embed/5dfd2858edf08a25543f4d74)
+https://dbdiagram.io/embed/5dfd2858edf08a25543f4d74
 
 O sistema foi testado no banco de dados PostgreSQL e SQLite
 
