@@ -11,6 +11,8 @@
   <table class="table table-bordered table-hover table-striped">
     <thead>
     <th>Nome</th>
+    <th>Data final</th>
+    <th>Data de entrada </th>
     <th>Dias de atraso</th>
     <th>Horas de atraso</th>
     <th colspan="3">Minutos de atraso</th>
@@ -19,9 +21,11 @@
     <% @late_people.each do |late_person| %>
       <tr>
         <td><%= late_person.full_name %></td>
-        <td><%= late_person.diff / 60 / 60 / 24 %></td>
-        <td><%= (late_person.diff / 60 / 60) % 24 %></td>
-        <td><%= (late_person.diff / 60) % 60 %></td>
+        <td><%= late_person.end_time %></td>
+        <td><%= late_person.entry_time %></td>
+        <td><%= (late_person.diff / 60 / 60 / 24).to_i %></td>
+        <td><%= ((late_person.diff / 60 / 60) % 24).to_i %></td>
+        <td><%= ((late_person.diff / 60) % 60).to_i %></td>
       </tr>
     <% end %>
     </tbody>
@@ -32,7 +36,7 @@
       <h5>Clientes que podem alugar caminhões</h5>
     </div>
     <div class="col-sm-6 d-flex justify-content-end">
-      <%= paginate @can_rent_truck, param_name: 'can_rent_trucke_page' %>
+      <%= paginate @can_rent_truck, param_name: 'can_rent_truck_page' %>
     </div>
   </div>
 

@@ -17,7 +17,7 @@ class Lease < ApplicationRecord
     delayToleranceInSeconds = SettingsHelper.getDelayToleranceInSeconds
     Lease.select('leases.*')
         .select("people.name || ' ' || people.surname AS full_name")
-        .select("EXTRACT(epoch FROM (leases.end_time - leases.entry_time)) as diff")
+        .select("EXTRACT(epoch FROM (leases.entry_time - leases.end_time)) as diff")
         .joins(:person).where("EXTRACT(epoch FROM (leases.end_time - leases.entry_time)) < ?", -delayToleranceInSeconds)
   }
 

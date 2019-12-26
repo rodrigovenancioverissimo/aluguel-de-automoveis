@@ -31,7 +31,7 @@ class Person < ApplicationRecord
   scope :can_rent_truck, -> {
     Person.joins(license: :modalities)
         .where("date_of_birth < ?", Date.current - 60.years)
-        .where(licenses: { modalities: 2 })
+        .where( modalities: { name: [3, 4, 5] } )
   }
 
   scope :can_lease_for_more_4_days, -> {
@@ -39,7 +39,7 @@ class Person < ApplicationRecord
   }
 
   scope :license_a_month_to_win, -> {
-    Person.joins(:license).where("licenses.validity >= ? and licenses.validity < ?", Date.current - 30.days, Date.current)
+    Person.joins(:license).where("licenses.validity <= ? and licenses.validity > ?", Date.current + 30.days, Date.current)
   }
 
   scope :sort_by_lease_cost, -> {
