@@ -10,16 +10,15 @@ class Lease < ApplicationRecord
   scope :cost_of_car_leases, -> {
     Lease.select('sum(leases.total_price) as price_all_car')
         .joins(:automobile)
-        .where(automobiles: { automobile_type: 0 })
-        .first.price_all_car
+        .where(automobiles: { automobile_type: 0 })[0].price_all_car
   }
 
   scope :late_people, -> {
     delayToleranceInSeconds = SettingsHelper.getDelayToleranceInSeconds
     Lease.select('leases.*')
         .select("people.name || ' ' || people.surname AS full_name")
-        .select("CAST(strftime('%s', leases.entry_time) - CAST(strftime('%s', leases.end_time) as integer) as integer) as diff")
-        .joins(:person).where("strftime('%s', leases.end_time) - strftime('%s', leases.entry_time) < ?", -delayToleranceInSeconds)
+        .select("EXTRACT(epoch FROM (leases.end_time - leases.entry_time)) as diff")
+        .joins(:person).where("EXTRACT(epoch FROM (leases.end_time - leases.entry_time)) < ?", -delayToleranceInSeconds)
   }
 
   scope :leases_in_progress, -> {

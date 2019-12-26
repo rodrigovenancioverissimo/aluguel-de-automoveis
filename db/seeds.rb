@@ -25,7 +25,7 @@ if ENV['faker'] == 'true'
                            date_of_birth: Faker::Date.birthday(min_age: 18, max_age: 65),
                            email: Faker::Internet.email,
                            phones_attributes: phones_params,
-                           licenses_attributes: [
+                           license_attributes:
                                {
                                    number: Faker::Number.number(digits: rand(10..11)),
                                    validity: Faker::Date.between(from: 5.years.ago, to: 5.years.from_now),
@@ -33,7 +33,7 @@ if ENV['faker'] == 'true'
                                        {name: Modality.names.key(rand(Modality.names.size))}
                                    ]
                                }
-                           ]
+
                        })
     automobiles_params.push({
                                 model: Faker::Vehicle.model,
@@ -44,7 +44,7 @@ if ENV['faker'] == 'true'
                                 daily_cost: Faker::Commerce.price(range: 50..1000, as_string: true)
                             })
   end
-  for i in 1..(sampling_number/2).to_i
+  for i in 1..(sampling_number / 2).to_i
     startTime = Faker::Time.between_dates(from: Date.today - 90, to: Date.today + 30, period: :day)
     endTime = (startTime + rand(1..4).day).change(hour: rand(8..17), min: rand(0..59))
     exitTime = Faker::Time.between(from: startTime, to: endTime - 1.hour, format: :default).to_time
@@ -74,7 +74,7 @@ else
           phones_attributes: [
               {ddd: '011', number: '7987-7842', phone_type: 'comercial', preferential: true},
           ],
-          licenses_attributes: [
+          license_attributes:
               {
                   number: '7195601426',
                   validity: '2023-12-02',
@@ -83,7 +83,6 @@ else
                       {name: 'B'},
                   ]
               }
-          ]
       },
       {
           name: 'Angelina',
@@ -94,7 +93,7 @@ else
           phones_attributes: [
               {ddd: '021', number: '1756-8397', phone_type: 'particular', preferential: true},
           ],
-          licenses_attributes: [
+          license_attributes:
               {
                   number: '6943716123',
                   validity: '2022-05-31',
@@ -103,7 +102,6 @@ else
                       {name: 'C'},
                   ]
               }
-          ]
       },
       {
           name: 'Beyouncé',
@@ -114,7 +112,7 @@ else
           phones_attributes: [
               {ddd: '045', number: '2540-8438', phone_type: 'trabalho', preferential: true},
           ],
-          licenses_attributes: [
+          license_attributes:
               {
                   number: '1180791711',
                   validity: '2024-08-07',
@@ -122,7 +120,6 @@ else
                       {name: 'B'},
                   ]
               }
-          ]
       },
       {
           name: 'Brad',
@@ -133,7 +130,7 @@ else
           phones_attributes: [
               {ddd: '036', number: '98783-9967', phone_type: 'particular', preferential: true},
           ],
-          licenses_attributes: [
+          license_attributes:
               {
                   number: '4022223573',
                   validity: '2023-05-16',
@@ -141,7 +138,6 @@ else
                       {name: 'E'},
                   ]
               }
-          ]
       },
       {
           name: 'Tom',
@@ -152,7 +148,7 @@ else
           phones_attributes: [
               {ddd: '022', number: '3603-1680', phone_type: 'comercial', preferential: true},
           ],
-          licenses_attributes: [
+          license_attributes:
               {
                   number: '4792176902',
                   validity: '2023-02-07',
@@ -160,7 +156,6 @@ else
                       {name: 'D'},
                   ]
               }
-          ]
       },
       {
           name: 'Gisele',
@@ -171,7 +166,7 @@ else
           phones_attributes: [
               {ddd: '032', number: '3388-8115', phone_type: 'particular', preferential: true},
           ],
-          licenses_attributes: [
+          license_attributes:
               {
                   number: '1910131222',
                   validity: '2023-02-26',
@@ -180,7 +175,6 @@ else
                       {name: 'B'},
                   ]
               }
-          ]
       },
       {
           name: 'Will',
@@ -191,7 +185,7 @@ else
           phones_attributes: [
               {ddd: '011', number: '98005-0339', phone_type: 'trabalho', preferential: true},
           ],
-          licenses_attributes: [
+          license_attributes:
               {
                   number: '6892136432',
                   validity: '2019-09-12',
@@ -199,7 +193,6 @@ else
                       {name: 'A'},
                   ]
               }
-          ]
       },
   ]
   automobiles_params = [
@@ -239,16 +232,7 @@ print('Criando pessoas')
 Person.transaction do
   person_params.each do |item_params|
     unless Person.find_by_cpf(item_params[:cpf])
-      person = Person.create!(item_params.except(:phones_attributes, :licenses_attributes))
-      item_params[:phones_attributes].each do |phone_params|
-        Phone.create!(phone_params.merge(person_id: person.id))
-      end
-      item_params[:licenses_attributes].each do |license_params|
-        license = License.create!(license_params.except(:modalities_attributes).merge(person_id: person.id))
-        license_params[:modalities_attributes].each do |modality_params|
-          Modality.create!(modality_params.merge(license_id: license.id))
-        end
-      end
+      person = Person.create!(item_params)
     end
     print('.')
   end

@@ -47,6 +47,9 @@ gem 'jquery-rails', '~> 4.3', '>= 4.3.5'
 # Para paginação
 gem 'kaminari', '~> 1.1', '>= 1.1.1'
 
+# Para usar o banco de dados postgre
+gem 'pg', '~> 1.2'
+
 # Para sistemas com múltiplos idiomas.
 gem 'rails-i18n', '~> 6.0'
 

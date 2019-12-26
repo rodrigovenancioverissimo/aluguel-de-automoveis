@@ -1,3 +1,12 @@
+postgresql_settings: &postgresql_settings
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  username: postgres
+  password: postgres
+  host: localhost
+
+
 # SQLite. Versions 3.8.0 and up are supported.
 #   gem install sqlite3
 #
@@ -10,8 +19,10 @@ default: &default
   timeout: 5000
 
 development:
-  <<: *default
-  database: db/development.sqlite3
+#  <<: *default
+#  database: db/development.sqlite3
+  <<: *postgresql_settings
+  database: aluguel_de_automoveis_dev
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".

@@ -43,7 +43,7 @@ class Person < ApplicationRecord
   }
 
   scope :sort_by_lease_cost, -> {
-    Person.joins(:active_lease).order(lease_total_price: :desc)
+    Person.joins(:active_lease).order(total_price: :desc)
   }
 
   scope :sorted_by, -> (sort_key){

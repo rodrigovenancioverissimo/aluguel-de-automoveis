@@ -30,7 +30,7 @@ yarn install
 O sistema foi desenvolvido com base na estrutura do banco de dados que você pode ver no seguinte link
 https://dbdiagram.io/embed/5dfd2858edf08a25543f4d74
 
-O sistema foi testado no banco de dados PostgreSQL e SQLite
+O sistema foi testado no banco de dados PostgreSQL
 
 ## Telas
 O design e telas do sistema ainda estão sendo desenvolvido porém a idéia segue a seguinte:

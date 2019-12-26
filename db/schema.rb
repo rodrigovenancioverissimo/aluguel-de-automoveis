@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 2019_12_20_194558) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -27,7 +30,7 @@ ActiveRecord::Schema.define(version: 2019_12_20_194558) do
   create_table "automobiles", force: :cascade do |t|
     t.string "model", limit: 128, null: false
     t.integer "color", null: false
-    t.integer "year", limit: 9999, null: false
+    t.integer "year", null: false
     t.integer "automobile_type", null: false
     t.string "plaque", limit: 7, null: false
     t.decimal "daily_cost", precision: 7, scale: 2, null: false
@@ -36,8 +39,8 @@ ActiveRecord::Schema.define(version: 2019_12_20_194558) do
   end
 
   create_table "leases", force: :cascade do |t|
-    t.integer "person_id", null: false
-    t.integer "automobile_id", null: false
+    t.bigint "person_id", null: false
+    t.bigint "automobile_id", null: false
     t.datetime "start_time", null: false
     t.datetime "end_time"
     t.datetime "entry_time"
@@ -50,7 +53,7 @@ ActiveRecord::Schema.define(version: 2019_12_20_194558) do
   end
 
   create_table "licenses", force: :cascade do |t|
-    t.integer "person_id", null: false
+    t.bigint "person_id", null: false
     t.string "number", limit: 11, null: false
     t.date "validity", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -59,7 +62,7 @@ ActiveRecord::Schema.define(version: 2019_12_20_194558) do
   end
 
   create_table "modalities", force: :cascade do |t|
-    t.integer "license_id", null: false
+    t.bigint "license_id", null: false
     t.integer "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -77,7 +80,7 @@ ActiveRecord::Schema.define(version: 2019_12_20_194558) do
   end
 
   create_table "phones", force: :cascade do |t|
-    t.integer "person_id", null: false
+    t.bigint "person_id", null: false
     t.string "ddd", limit: 3, null: false
     t.string "number", limit: 9, null: false
     t.integer "phone_type", null: false
