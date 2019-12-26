@@ -1,6 +1,9 @@
 class LeasesController < ApplicationController
   before_action :set_lease, only: [:show, :edit, :update, :destroy]
   before_action { @sidebar = 'administration' }
+  before_action :new_lease_filterrific, only: [:new, :edit, :update, :create]
+  before_action :set_lease_of_create, only: [:create]
+  before_action :validate_params, only: [:update, :create]
 
   # GET /leases
   # GET /leases.json
@@ -16,7 +19,6 @@ class LeasesController < ApplicationController
   # GET /leases/new
   def new
     @lease = Lease.new
-    new_lease_filterrific
   end
 
   # GET /leases/1/edit
@@ -26,12 +28,15 @@ class LeasesController < ApplicationController
   # POST /leases
   # POST /leases.json
   def create
-    @lease = Lease.new(lease_params)
-    new_lease_filterrific
     respond_to do |format|
-      if @lease.save
-        format.html { redirect_to @lease, notice: 'Lease was successfully created.' }
-        format.json { render :show, status: :created, location: @lease }
+      if @lease.errors.count == 0
+        if @lease.save
+          format.html { redirect_to @lease, notice: 'Lease was successfully created.' }
+          format.json { render :show, status: :created, location: @lease }
+        else
+          format.html { render :new }
+          format.json { render json: @lease.errors, status: :unprocessable_entity }
+        end
       else
         format.html { render :new }
         format.json { render json: @lease.errors, status: :unprocessable_entity }
@@ -43,11 +48,16 @@ class LeasesController < ApplicationController
   # PATCH/PUT /leases/1.json
   def update
     respond_to do |format|
-      if @lease.update(lease_params)
-        format.html { redirect_to @lease, notice: 'Lease was successfully updated.' }
-        format.json { render :show, status: :ok, location: @lease }
+      if @lease.errors.count == 0
+        if @lease.update(lease_params)
+          format.html { redirect_to @lease, notice: 'Lease was successfully updated.' }
+          format.json { render :show, status: :ok, location: @lease }
+        else
+          format.html { render :edit }
+          format.json { render json: @lease.errors, status: :unprocessable_entity }
+        end
       else
-        format.html { render :edit }
+        format.html { render :new }
         format.json { render json: @lease.errors, status: :unprocessable_entity }
       end
     end
@@ -116,5 +126,42 @@ class LeasesController < ApplicationController
     # There is an issue with the persisted param_set. Reset it.
     puts "Had to reset filterrific params: #{e.message}"
     redirect_to(reset_filterrific_url(format: :html)) && return
+  end
+
+  def set_lease_of_create
+    @lease = Lease.new(lease_params)
+  end
+
+  def validate_params
+    person = @lease.person
+    automobile = @lease.automobile
+    if person.active_lease
+      @lease.errors.add(:lease, 'existe outra locação em andamento')
+    end
+    # Para todos os clientes
+    if person.date_of_birth > Date.current - 21.years
+      @lease.errors.add(:person, 'deve ter mais de 21 anos para alugar um automóvel')
+    end
+    if @lease.end_time - @lease.start_time > 4.days && person.leases.where("leases.end_time < leases.entry_time").count <= 2
+      @lease.errors.add(:person, 'deve ter mais de 2 locações sem atrasos para alugar por mais de 4 dias')
+    end
+    # Para alugar ônibus
+    if Automobile.automobile_types[automobile.automobile_type] == 3 &&
+        (person.date_of_birth > Date.current - 40.years || person.license.modalities.where(name: ['D', 'E']).blank?)
+      @lease.errors.add(:person, 'deve ter mais de 40 anos e habilitação correspondente para alugar um ônibusl')
+    end
+    # Para alugar caminhão
+    if Automobile.automobile_types[automobile.automobile_type] == 1 &&
+        (person.date_of_birth > Date.current - 60.years || person.license.modalities.where(name: ['C', 'D', 'E']).blank?)
+      @lease.errors.add(:person, 'deve ter mais de 60 anos e habilitação correspondente para alugar um caminhão')
+    end
+    # Para alugar carros
+    if Automobile.automobile_types[automobile.automobile_type] == 0 && person.license.validity < Date.current
+      @lease.errors.add(:person, 'com habilitações vencidas não podem alugar carros')
+    end
+    # Pata todos os veículos
+    if automobile.plaque[-1] == '4' && @lease.start_time.wday == 4
+      @lease.errors.add(:automobile, 'que possue a placa de final 4 não pode ser alugado às quartas feiras')
+    end
   end
 end

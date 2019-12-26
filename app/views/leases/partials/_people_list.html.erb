@@ -6,6 +6,8 @@
       <th>Sobrenome</th>
       <th>CPF</th>
       <th>Data de nascimento</th>
+      <th>Idade</th>
+      <th>Habilitação</th>
       <th></th>
     </tr>
     <% if people.blank? %>
@@ -17,6 +19,8 @@
         <td><%= person.surname %></td>
         <td><%= person.cpf %></td>
         <td><%= person.date_of_birth %></td>
+        <td><%= ((Date.current - person.date_of_birth) / 365).to_i %></td>
+        <td><%= "#{person.license.validity} - #{person.license.modalities.pluck(:name)}" %></td>
         <td>
           <button class="btn btn-sm btn-success"
             onclick="set_person(
