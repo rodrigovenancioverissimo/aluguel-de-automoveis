@@ -42,6 +42,10 @@ class Person < ApplicationRecord
     Person.joins(:license).where("licenses.validity >= ? and licenses.validity < ?", Date.current - 30.days, Date.current)
   }
 
+  scope :sort_by_lease_cost, -> {
+    Person.joins(:active_lease).order(lease_total_price: :desc)
+  }
+
   scope :sorted_by, -> (sort_key){
 
   }

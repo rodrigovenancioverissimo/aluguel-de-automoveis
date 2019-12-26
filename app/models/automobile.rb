@@ -18,6 +18,10 @@ class Automobile < ApplicationRecord
     Automobile.where("plaque like '%4'")
   }
 
+  scope :motorcycle_cost_for_3_days, -> {
+    Automobile.select([:id, :plaque, :daily_cost]).select('daily_cost * 3 as cost_for_3_days').where(automobile_type: 2)
+  }
+
   filterrific(
       default_filter_params: { sorted_by: 'model_asc' },
       available_filters: [
