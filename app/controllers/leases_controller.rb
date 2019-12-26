@@ -135,7 +135,7 @@ class LeasesController < ApplicationController
   def validate_params
     person = @lease.person
     automobile = @lease.automobile
-    if person.active_lease
+    if person.active_lease.present? && person.active_lease.id != @lease.id && @lease.end_time.blank?
       @lease.errors.add(:lease, 'existe outra locação em andamento')
     end
     # Para todos os clientes
@@ -148,7 +148,7 @@ class LeasesController < ApplicationController
     # Para alugar ônibus
     if Automobile.automobile_types[automobile.automobile_type] == 3 &&
         (person.date_of_birth > Date.current - 40.years || person.license.modalities.where(name: ['D', 'E']).blank?)
-      @lease.errors.add(:person, 'deve ter mais de 40 anos e habilitação correspondente para alugar um ônibusl')
+      @lease.errors.add(:person, 'deve ter mais de 40 anos e habilitação correspondente para alugar um ônibus')
     end
     # Para alugar caminhão
     if Automobile.automobile_types[automobile.automobile_type] == 1 &&

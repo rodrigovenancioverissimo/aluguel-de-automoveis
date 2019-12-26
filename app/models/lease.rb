@@ -15,9 +15,11 @@ class Lease < ApplicationRecord
   }
 
   scope :late_people, -> {
-    Lease.select("people.name || ' ' || people.surname AS full_name")
+    delayToleranceInSeconds = SettingsHelper.getDelayToleranceInSeconds
+    Lease.select('leases.*')
+        .select("people.name || ' ' || people.surname AS full_name")
         .select("CAST(strftime('%s', leases.entry_time) - CAST(strftime('%s', leases.end_time) as integer) as integer) as diff")
-        .joins(:person).where("leases.end_time < leases.entry_time")
+        .joins(:person).where("strftime('%s', leases.end_time) - strftime('%s', leases.entry_time) < ?", -delayToleranceInSeconds)
   }
 
   scope :leases_in_progress, -> {

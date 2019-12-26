@@ -279,4 +279,7 @@ Lease.transaction do
   puts('.')
 end
 
+puts('Criando configurações')
+Setting.create!(name: 'delay tolerance in minutes', value: '30')
+
 puts('Operação concluída')
