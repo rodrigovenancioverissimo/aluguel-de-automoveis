@@ -45,7 +45,7 @@ gem 'font-awesome-rails', '~> 4.7', '>= 4.7.0.5'
 gem 'jquery-rails', '~> 4.3', '>= 4.3.5'
 
 # Para paginação
-gem 'kaminari', '~> 1.1', '>= 1.1.1'
+gem 'kaminari', '~> 1.2'
 
 # Para usar o banco de dados postgre
 gem 'pg', '~> 1.2'
